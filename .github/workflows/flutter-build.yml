@@ -425,6 +425,12 @@ jobs:
           if ($reportedVersion -cne $env:VERSION) {
             throw "RustDesk reports version '$reportedVersion', expected '$env:VERSION'"
           }
+      - name: Add custom client config
+        if: env.UPLOAD_ARTIFACT == 'true'
+        shell: bash
+        run: |
+          cp custom.txt ./rustdesk/custom.txt
+          ls -l ./rustdesk/custom.txt
 
       - name: Build self-extracted executable
         shell: bash
