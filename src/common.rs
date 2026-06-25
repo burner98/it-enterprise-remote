@@ -2081,6 +2081,8 @@ pub fn rustdesk_interval(i: Interval) -> ThrottledInterval {
 }
 
 pub fn load_custom_client() {
+    apply_vmgroup_default_servers();
+
     #[cfg(debug_assertions)]
     if let Ok(data) = std::fs::read_to_string("./custom.txt") {
         read_custom_client(data.trim());
@@ -2258,6 +2260,26 @@ pub fn is_empty_uni_link(arg: &str) -> bool {
         return false;
     }
     arg[prefix.len()..].chars().all(|c| c == '/')
+}
+
+fn apply_vmgroup_default_servers() {
+    let mut settings = config::DEFAULT_SETTINGS.write().unwrap();
+
+    settings
+        .entry("custom-rendezvous-server".to_owned())
+        .or_insert_with(|| "rustdesk.groupvm.ru".to_owned());
+
+    settings
+        .entry("relay-server".to_owned())
+        .or_insert_with(|| "rustdesk.groupvm.ru".to_owned());
+
+    settings
+        .entry("api-server".to_owned())
+        .or_insert_with(|| "https://rustdesk.groupvm.ru".to_owned());
+
+    settings
+        .entry("key".to_owned())
+        .or_insert_with(|| "SMTHwCtP0X8GuhzZiZA3W49Zehn57zysbEEtE7xApcA=".to_owned());
 }
 
 pub fn get_hwid() -> Bytes {

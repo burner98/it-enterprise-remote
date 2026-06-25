@@ -336,13 +336,6 @@ jobs:
           pip3 install requests argparse
           BASE_URL=${{ env.SIGN_BASE_URL }} SECRET_KEY=${{ secrets.SIGN_SECRET_KEY }} python3 res/job.py sign_files ./rustdesk/
 
-      - name: Add custom client config
-        if: env.UPLOAD_ARTIFACT == 'true'
-        shell: bash
-        run: |
-          cp custom.txt ./rustdesk/custom.txt
-          ls -l ./rustdesk/custom.txt
-
       - name: Build self-extracted executable
         shell: bash
         if: env.UPLOAD_ARTIFACT == 'true'
