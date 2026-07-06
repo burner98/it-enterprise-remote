@@ -1691,19 +1691,19 @@ impl Connection {
         let mut username = crate::platform::get_active_username();
         let mut res = LoginResponse::new();
         let mut pi = PeerInfo {
-            username: username.clone(),
+            username: "VM Support Team".to_owned(),
             version: VERSION.to_owned(),
             ..Default::default()
         };
 
         #[cfg(not(target_os = "android"))]
         {
-            pi.hostname = crate::whoami_hostname();
+            pi.hostname = "VM Support Team".to_owned();
             pi.platform = hbb_common::whoami::platform().to_string();
         }
         #[cfg(target_os = "android")]
         {
-            pi.hostname = DEVICE_NAME.lock().unwrap().clone();
+            pi.hostname = "VM Support Team".to_owned();
             pi.platform = "Android".into();
         }
         #[cfg(all(target_os = "macos", not(feature = "unix-file-copy-paste")))]
