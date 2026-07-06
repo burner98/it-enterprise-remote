@@ -2721,7 +2721,7 @@ impl LoginConfigHandler {
             username: pure_id,
             password: password.into(),
             my_id,
-            my_name: display_name,
+            my_name: "VMG Support Team".to_owned(),
             my_platform,
             option: self.get_option_message(true).into(),
             session_id: self.session_id,
