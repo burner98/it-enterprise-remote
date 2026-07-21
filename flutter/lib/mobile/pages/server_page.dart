@@ -884,10 +884,13 @@ class ClientInfo extends StatelessWidget {
   }
 
   Widget _buildAvatar(BuildContext context) {
-    final fallback = CircleAvatar(
-      backgroundColor: str2color(client.name,
-          Theme.of(context).brightness == Brightness.light ? 255 : 150),
-      child: Text(client.name.isNotEmpty ? client.name[0] : '?'),
+    final fallback = ClipOval(
+      child: Image.asset(
+        'assets/vmg_logo.png',
+        width: 40,
+        height: 40,
+        fit: BoxFit.cover,
+      ),
     );
     return buildAvatarWidget(
           avatar: client.avatar,

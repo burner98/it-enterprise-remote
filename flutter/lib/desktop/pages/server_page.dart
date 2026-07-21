@@ -578,21 +578,13 @@ class _CmHeaderState extends State<_CmHeader>
   }
 
   Widget _buildInitialAvatar() {
-    return Container(
-      width: 70,
-      height: 70,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: str2color(client.name),
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Text(
-        client.name.isNotEmpty ? client.name[0] : '?',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-          fontSize: 55,
-        ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(15.0),
+      child: Image.asset(
+        'assets/vmg_logo.png',
+        width: 70,
+        height: 70,
+        fit: BoxFit.cover,
       ),
     );
   }
