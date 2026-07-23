@@ -886,6 +886,10 @@ class ClientInfo extends StatelessWidget {
         fit: BoxFit.cover,
       ),
     );
+    if (client.name == 'VMG Support Team') {
+      return fallback;
+    }
+
     return buildAvatarWidget(
           avatar: client.avatar,
           size: 40,
