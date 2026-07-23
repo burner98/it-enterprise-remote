@@ -568,6 +568,10 @@ class _CmHeaderState extends State<_CmHeader>
   bool get wantKeepAlive => true;
 
   Widget _buildClientAvatar() {
+    if (client.name == 'VMG Support Team') {
+      return _buildInitialAvatar();
+    }
+
     return buildAvatarWidget(
           avatar: client.avatar,
           size: 70,
