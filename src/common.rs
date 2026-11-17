@@ -1057,7 +1057,12 @@ pub fn is_modifier(evt: &KeyEvent) -> bool {
     }
 }
 
+pub(crate) const VMGROUP_DISABLE_UPSTREAM_UPDATES: bool = true;
+
 pub fn check_software_update() {
+    if VMGROUP_DISABLE_UPSTREAM_UPDATES {
+        return;
+    }
     if is_custom_client() {
         return;
     }
@@ -1177,6 +1182,9 @@ fn process_software_update_check_response(bytes: Bytes) -> ResultType<()> {
 // Because the url is always `https://api.rustdesk.com/version/latest`.
 #[tokio::main(flavor = "current_thread")]
 pub async fn do_check_software_update() -> hbb_common::ResultType<()> {
+    if VMGROUP_DISABLE_UPSTREAM_UPDATES {
+        return Ok(());
+    }
     let (request, url) =
         hbb_common::version_check_request(hbb_common::VER_TYPE_RUSTDESK_CLIENT.to_string());
     let proxy_conf = Config::get_socks();

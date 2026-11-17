@@ -99,6 +99,9 @@ pub fn update_controlling_session_count(count: usize) {
 
 #[allow(dead_code)]
 pub fn start_auto_update() {
+    if crate::common::VMGROUP_DISABLE_UPSTREAM_UPDATES {
+        return;
+    }
     let _sender = TX_MSG.lock().unwrap();
 }
 
@@ -187,6 +190,9 @@ fn start_auto_update_check_(rx_msg: Receiver<UpdateMsg>) {
 }
 
 fn check_update(manually: bool) -> ResultType<()> {
+    if crate::common::VMGROUP_DISABLE_UPSTREAM_UPDATES {
+        return Ok(());
+    }
     // On macOS, auto-update is handled by check_update_as_root() in the service process.
     // The shared check_update() path is only used for manual update checks from the GUI.
     #[cfg(target_os = "macos")]
